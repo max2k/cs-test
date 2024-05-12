@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) throws NotImplementedException
-            ,IllegalArgumentException {
+    public UserDTO createUser(UserDTO userDTO) throws
+            IllegalArgumentException {
 
         User user=modelMapper.map(userDTO, User.class);
 
@@ -37,13 +37,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(long l, UserDTO userDTO) throws NotImplementedException {
+    public void updateUser(long l, UserDTO userDTO)  {
         User user=modelMapper.map(userDTO, User.class);
         userDAO.updateUser(l,user);
     }
 
     @Override
-    public void updateUserFields(long l, Map<String, String> allParams) throws NotImplementedException {
+    public void updateUserFields(long l, Map<String, String> allParams) {
         Optional<User> optUser=userDAO.findUserById(l);
         User user2Update=optUser.orElseThrow(() -> new NoSuchElementException("User not found"));
 

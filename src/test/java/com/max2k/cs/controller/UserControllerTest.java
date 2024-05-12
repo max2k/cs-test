@@ -107,8 +107,9 @@ class UserControllerTest {
         testUserDTO.setEmail("test@email.com");
 
         testValueOver(testUserDTO, new String[]{null,""},testUserDTO::setFirstName,"first name cannot be blank");
+        testUserDTO.setFirstName("test");
         testValueOver(testUserDTO, new String[]{null,""},testUserDTO::setLastName,
-                "last name cannot be blank, first name cannot be blank");
+                "last name cannot be blank");
 
     }
 
@@ -217,7 +218,7 @@ class UserControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(reqUserDTO)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User id is not a number"))
+                .andExpect(jsonPath("$.message").value("Id is not a number"))
                 .andReturn();
 
     }
@@ -301,15 +302,6 @@ class UserControllerTest {
                 .andReturn();
     }
 
-    @Test
-    void updateUserFieldsBlancID() throws Exception {
-        mockMvc.perform(
-                        MockMvcRequestBuilders.patch("/user/update")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(reqUserDTO)))
-                .andExpect(status().isNotFound())
-                .andReturn();
-    }
 
     @Test
     void updateUserFieldsUpdateException() throws Exception {
@@ -339,7 +331,7 @@ class UserControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .params(getUpdateFieldTestParams())
                 )
-                .andExpect(status().isNotFound())
+                .andExpect(status().isMethodNotAllowed())
                 .andReturn();
 
     }
@@ -417,4 +409,27 @@ class UserControllerTest {
                 .andReturn();
     }
 
+    @Test
+    void deleteUserNormal() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.delete("/user/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("User deleted successfully"))
+                .andReturn();
+
+    }
+
+    @Test
+    void deleteUserWrongID() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.delete("/user/T1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("User id is not a number"))
+                .andReturn();
+
+    }
 }

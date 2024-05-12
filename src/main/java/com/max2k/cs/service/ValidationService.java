@@ -2,7 +2,9 @@ package com.max2k.cs.service;
 
 import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.DTO.ResultDTO;
+import jakarta.validation.constraints.NotBlank;
 
+import java.time.Instant;
 import java.util.Map;
 
 public interface ValidationService {
@@ -11,5 +13,5 @@ public interface ValidationService {
 
     ResultDTO validateUserFields(Map<String, String> allParams);
 
-    ResultDTO validateBirthdayRange(String dateFrom, String dateTo);
+    ResultDTO validateBirthdayRange(@NotBlank Instant dateFrom, @NotBlank Instant dateTo);
 }

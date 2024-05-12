@@ -9,11 +9,11 @@ import java.util.Map;
 
 public interface UserService {
 
-    UserDTO createUser(UserDTO userDTO) throws NotImplementedException;
+    UserDTO createUser(UserDTO userDTO) ;
 
-    void updateUser(long l, UserDTO userDTO) throws NotImplementedException;
+    void updateUser(long l, UserDTO userDTO) ;
 
-    void updateUserFields(long l, Map<String, String> allParams) throws NotImplementedException;
+    void updateUserFields(long l, Map<String, String> allParams) ;
 
     void deleteUserById(long l);
 

@@ -21,8 +21,8 @@ public class UserDTO {
 
     public interface Exist {}
 
-    @Null(groups = New.class)
-    @NotBlank(groups = Exist.class)
+    @Null(message = "Id must be null", groups = New.class)
+    @NotNull(message = "Id must be not null", groups = Exist.class)
     private Long id;
 
     @NotBlank(message = "Email cannot be blank", groups = {Exist.class,New.class})

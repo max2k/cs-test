@@ -4,6 +4,8 @@ import com.max2k.cs.DTO.ResultDTO;
 import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.model.User;
 import com.max2k.cs.service.ValidationService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class ValidationServiceImpl implements ValidationService {
@@ -48,14 +51,16 @@ public class ValidationServiceImpl implements ValidationService {
         }
 
         // any null or empty values
-        if (inputFields.values().stream().anyMatch(s -> s == null || s.isEmpty()))
-            return new ResultDTO(false, "Empty of blank field values not allowed");
+        if (inputFields.values().stream().anyMatch(Objects::isNull))
+            return new ResultDTO(false, "Null field values not allowed");
 
         return new ResultDTO(true, "Ok");
     }
 
     @Override
-    public ResultDTO validateBirthdayRange(String dateFrom, String dateTo) {
-        return new ResultDTO(false,"not implemented yet");
+    public ResultDTO validateBirthdayRange(Instant dateFrom, Instant dateTo) {
+        if (dateFrom.isAfter(dateTo))
+            return new ResultDTO(false, "Invalid date range");
+        return new ResultDTO(true,"Ok");
     }
 }

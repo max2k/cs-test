@@ -1,5 +1,6 @@
 package com.max2k.cs.service.impl;
 
+import com.max2k.cs.DTO.ResultDTO;
 import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.service.ValidationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -40,8 +43,45 @@ class ValidationServiceImplTest {
 
     @Test
     void validateUserFieldsNormal() {
-
-        validationService.validateUserFields(List.of("")
+        assertTrue(
+            validationService.validateUserFields(Map.of("firstName","test firstname",
+                "lastNAme","test lastName")).isValid()
         );
     }
+
+    @Test
+    void validateUserFieldsFail() {
+        ResultDTO resultDTO=validationService.validateUserFields(Map.of("firstName","test firstname",
+                "11lastNAme","test lastName"));
+        assertFalse(resultDTO.isValid());
+        assertEquals("Field 11lastNAme not allowed to update",resultDTO.getMessage());
+    }
+
+    @Test
+    void validateUserFieldsFailNull() {
+        Map<String,String> testMap=new HashMap<>();
+        testMap.put("lastname",null);
+        ResultDTO resultDTO=validationService.validateUserFields(testMap);
+        assertFalse(resultDTO.isValid());
+        assertEquals("Null field values not allowed",resultDTO.getMessage());
+    }
+
+    @Test
+    void validateBirthdayRangeNormal() {
+        assertTrue(
+                validationService.validateBirthdayRange(
+                        Instant.parse("1980-07-07T00:00:00Z"),
+                        Instant.parse("1990-01-01T00:00:00Z")).isValid()
+        );
+    }
+
+    @Test
+    void validateBirthdayRangeFail() {
+        assertFalse(
+                validationService.validateBirthdayRange(
+                        Instant.parse("1990-07-07T00:00:00Z"),
+                        Instant.parse("1980-01-01T00:00:00Z")).isValid()
+        );
+    }
+
 }
