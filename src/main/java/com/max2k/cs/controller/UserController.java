@@ -1,21 +1,19 @@
 package com.max2k.cs.controller;
 
-import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.DTO.ResultDTO;
-import com.max2k.cs.exception.NotImplementedException;
+import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.service.UserService;
 import com.max2k.cs.service.ValidationService;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 

@@ -1,7 +1,6 @@
 package com.max2k.cs.DAO.impl;
 
 import com.max2k.cs.DAO.UserDAO;
-import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.model.User;
 import org.springframework.stereotype.Repository;
 

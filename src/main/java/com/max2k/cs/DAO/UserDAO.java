@@ -1,6 +1,5 @@
 package com.max2k.cs.DAO;
 
-import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.model.User;
 
 import java.time.Instant;

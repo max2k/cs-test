@@ -1,7 +1,6 @@
 package com.max2k.cs.service;
 
 import com.max2k.cs.DTO.UserDTO;
-import com.max2k.cs.exception.NotImplementedException;
 
 import java.time.Instant;
 import java.util.List;

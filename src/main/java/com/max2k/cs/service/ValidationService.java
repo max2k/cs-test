@@ -1,7 +1,7 @@
 package com.max2k.cs.service;
 
-import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.DTO.ResultDTO;
+import com.max2k.cs.DTO.UserDTO;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.Instant;

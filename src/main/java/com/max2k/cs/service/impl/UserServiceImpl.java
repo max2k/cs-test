@@ -2,7 +2,6 @@ package com.max2k.cs.service.impl;
 
 import com.max2k.cs.DAO.UserDAO;
 import com.max2k.cs.DTO.UserDTO;
-import com.max2k.cs.exception.NotImplementedException;
 import com.max2k.cs.model.User;
 import com.max2k.cs.service.UserService;
 import lombok.RequiredArgsConstructor;

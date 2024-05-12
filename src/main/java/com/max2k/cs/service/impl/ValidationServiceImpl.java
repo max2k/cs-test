@@ -4,8 +4,6 @@ import com.max2k.cs.DTO.ResultDTO;
 import com.max2k.cs.DTO.UserDTO;
 import com.max2k.cs.model.User;
 import com.max2k.cs.service.ValidationService;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
