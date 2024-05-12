@@ -2,6 +2,7 @@ package com.max2k.cs.service.impl;
 
 import com.max2k.cs.DTO.ResultDTO;
 import com.max2k.cs.DTO.UserDTO;
+import com.max2k.cs.model.User;
 import com.max2k.cs.service.ValidationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 import java.util.Map;
 
 @Service
@@ -29,13 +31,27 @@ public class ValidationServiceImpl implements ValidationService {
         )<allowedAgeInYears)
             return new ResultDTO(false,"Not allowed to register user age under "+allowedAgeInYears+" years");
 
-        return new ResultDTO(true,"Ok")
+        return new ResultDTO(true, "Ok");
 
     }
 
     @Override
-    public ResultDTO validateUserFields(Map<String, String> allParams) {
-        return new ResultDTO(false,"not implemented yet");
+    public ResultDTO validateUserFields(Map<String, String> inputFields) {
+        if (inputFields.keySet().isEmpty()) return new ResultDTO(false, "No fields set to update");
+
+        Map<String, String> methodNames = User.getMethodNames();
+
+        // not fields not allowed to update
+        for (String key : inputFields.keySet()) {
+            if (!methodNames.containsKey(key.toLowerCase(Locale.ROOT)))
+                return new ResultDTO(false, "Field " + key + " not allowed to update");
+        }
+
+        // any null or empty values
+        if (inputFields.values().stream().anyMatch(s -> s == null || s.isEmpty()))
+            return new ResultDTO(false, "Empty of blank field values not allowed");
+
+        return new ResultDTO(true, "Ok");
     }
 
     @Override
